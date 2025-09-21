@@ -1,0 +1,50 @@
+{
+  "name": "orion-beta",
+  "description": "Orion Beta - WhatsApp Webhook with MCP, n8n, and HubSpot Integration",
+  "version": "1.0.0",
+  "type": "app",
+  "src": {
+    "app": {
+      "extensions": [],
+      "functions": []
+    }
+  },
+  "scopes": [
+    "crm.objects.contacts.read",
+    "crm.objects.contacts.write",
+    "crm.objects.deals.read",
+    "crm.objects.deals.write",
+    "crm.objects.companies.read",
+    "crm.objects.companies.write",
+    "timeline.events.write",
+    "crm.schemas.contacts.read",
+    "crm.schemas.deals.read",
+    "crm.schemas.companies.read"
+  ],
+  "settings": {
+    "webhook": {
+      "enabled": true,
+      "url": "https://your-domain.com/webhook",
+      "events": [
+        "contact.creation",
+        "contact.propertyChange",
+        "deal.creation",
+        "deal.propertyChange"
+      ]
+    },
+    "api": {
+      "baseUrl": "https://api.hubapi.com",
+      "version": "v3"
+    }
+  },
+  "environment": {
+    "development": {
+      "port": 3000,
+      "webhookUrl": "https://your-ngrok-url.ngrok.io/webhook"
+    },
+    "production": {
+      "port": 3000,
+      "webhookUrl": "https://your-production-domain.com/webhook"
+    }
+  }
+}
