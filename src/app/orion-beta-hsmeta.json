@@ -1,0 +1,23 @@
+{
+  "label": "Orion Beta App",
+  "version": 1,
+  "description": "WhatsApp Webhook with MCP, n8n, and HubSpot Integration",
+  "icon": "app-icon.svg",
+  "features": [
+    {
+      "type": "serverless-function",
+      "file": "app.js",
+      "name": "orion-beta-webhook",
+      "description": "Main webhook handler for WhatsApp integration"
+    }
+  ],
+  "permissions": [
+    "crm.objects.contacts.read",
+    "crm.objects.contacts.write",
+    "crm.objects.deals.read",
+    "crm.objects.deals.write",
+    "crm.objects.companies.read",
+    "crm.objects.companies.write",
+    "timeline.events.write"
+  ]
+}
