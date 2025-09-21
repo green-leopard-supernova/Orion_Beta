@@ -2,7 +2,7 @@
 
 **WhatsApp Webhook with MCP, n8n, and HubSpot Integration**
 
-A powerful central orchestration hub that connects WhatsApp Business API with HubSpot CRM, n8n workflows, and AI assistants through the Model Context Protocol (MCP).
+A powerful, modular central orchestration hub that connects WhatsApp Business API with HubSpot CRM, n8n workflows, and AI assistants through the Model Context Protocol (MCP).
 
 ## 🎯 **What This Does**
 
@@ -23,6 +23,36 @@ WhatsApp Messages → Orion Beta → HubSpot CRM
                    AI Assistants (via MCP)
 ```
 
+## 📁 **Project Structure**
+
+```
+Orion_Beta/
+├── modules/
+│   ├── whatsapp-webhook/          # WhatsApp Business API integration
+│   │   ├── index.js               # Original webhook implementation
+│   │   ├── webhook-mcp-integration.js  # Integrated webhook with MCP
+│   │   └── README.md              # WhatsApp module documentation
+│   ├── hubspot-integration/       # HubSpot CRM integration
+│   │   ├── hubspot-integration.js # Direct HubSpot API service
+│   │   ├── hubspot-mcp-server.js  # HubSpot MCP server for AI
+│   │   ├── test-hubspot-integration.js  # HubSpot testing
+│   │   └── README.md              # HubSpot module documentation
+│   ├── n8n-integration/           # n8n workflow automation
+│   │   ├── test-n8n-integration.js  # n8n testing
+│   │   └── README.md              # n8n module documentation
+│   ├── mcp-protocol/              # Model Context Protocol
+│   │   ├── mcp-server.js          # WhatsApp MCP server
+│   │   ├── mcp-client.js          # External MCP client
+│   │   ├── mcp-rest-server.js     # Generic REST API MCP server
+│   │   └── README.md              # MCP module documentation
+│   └── testing/                   # Comprehensive testing suite
+│       ├── test-*.js              # All test files
+│       └── README.md              # Testing documentation
+├── .env.example                   # Environment configuration template
+├── package.json                   # Dependencies and scripts
+└── README.md                      # This file
+```
+
 ## 🚀 **Quick Start**
 
 ### 1. Install Dependencies
@@ -32,26 +62,26 @@ npm install
 
 ### 2. Configure Environment
 ```bash
-cp env.example .env
-# Edit .env with your API keys
+cp .env.example .env
+# Edit .env with your API keys (see Configuration section)
 ```
 
 ### 3. Test the Integration
 ```bash
-# Test HubSpot integration
-npm run test:hubspot
-
-# Test n8n integration  
-npm run test:n8n
-
-# Test MCP functionality
-npm run test:mcp-server
+# Test all components
+npm run test:hubspot    # HubSpot integration
+npm run test:n8n        # n8n integration
+npm run test:mcp-server # MCP server functionality
+npm run test:whatsapp   # WhatsApp message sending
 ```
 
 ### 4. Start the Webhook
 ```bash
-# Start the integrated webhook
+# Start the integrated webhook (recommended)
 npm run start:mcp
+
+# Or start the basic webhook
+npm start
 ```
 
 ## ⚙️ **Configuration**
@@ -62,6 +92,7 @@ npm run start:mcp
 VERIFY_TOKEN=your_webhook_verify_token
 WHATSAPP_TOKEN=your_whatsapp_access_token
 PHONE_NUMBER_ID=your_whatsapp_phone_number_id
+APP_SECRET=your_webhook_app_secret
 
 # HubSpot Integration
 HUBSPOT_API_KEY=your_hubspot_private_app_token
@@ -69,6 +100,10 @@ HUBSPOT_API_KEY=your_hubspot_private_app_token
 # n8n Integration
 N8N_WEBHOOK_URL=https://your-n8n-instance.com/webhook/whatsapp
 N8N_TOKEN=your_n8n_token
+
+# MCP Server Configuration (optional)
+API_BASE_URL=https://your-api.com/api/v1
+API_KEY=your_api_key
 ```
 
 ## 📊 **API Endpoints**
@@ -99,17 +134,18 @@ N8N_TOKEN=your_n8n_token
 
 ## 🧪 **Testing**
 
+### Run All Tests
 ```bash
-# Test all components
 npm run test:hubspot    # HubSpot API integration
 npm run test:n8n        # n8n webhook integration
 npm run test:mcp-server # MCP server functionality
 npm run test:mcp-client # MCP client functionality
-
-# Test individual components
-node test-send.js       # Send WhatsApp message
-node test-webhook.js    # Test webhook locally
+npm run test:whatsapp   # WhatsApp message sending
+npm run test:webhook    # Webhook functionality
 ```
+
+### Individual Module Testing
+Each module has its own comprehensive test suite. See individual README files in the `modules/` directory for detailed testing instructions.
 
 ## 🚀 **Deployment Options**
 
@@ -135,41 +171,17 @@ railway deploy
 # Then deploy via Heroku CLI
 ```
 
-## 📁 **Project Structure**
-
-```
-Orion_Beta/
-├── Core Webhook
-│   ├── index.js                          # Original WhatsApp webhook
-│   ├── webhook-mcp-integration.js        # Integrated webhook with MCP
-│   └── test-send.js                      # WhatsApp message testing
-├── MCP Integration
-│   ├── mcp-server.js                     # WhatsApp MCP server
-│   ├── mcp-client.js                     # External MCP client
-│   ├── mcp-rest-server.js                # Generic REST API MCP server
-│   └── hubspot-mcp-server.js             # HubSpot MCP server
-├── HubSpot Integration
-│   ├── hubspot-integration.js            # Direct HubSpot API service
-│   └── test-hubspot-integration.js       # HubSpot testing
-├── n8n Integration
-│   └── test-n8n-integration.js           # n8n testing
-├── Testing
-│   ├── test-mcp-server.js                # MCP server tests
-│   ├── test-mcp-client.js                # MCP client tests
-│   └── test-webhook.js                   # Webhook testing
-└── Configuration
-    ├── .env.example                      # Environment template
-    └── package.json                      # Dependencies and scripts
-```
-
 ## 🎉 **What You Get**
 
+- ✅ **Modular Architecture** - Clean separation of concerns
 - ✅ **Automatic contact management** in HubSpot
 - ✅ **Timeline event logging** for all WhatsApp interactions
 - ✅ **Intelligent lead qualification** and deal creation
 - ✅ **n8n workflow automation** triggers
 - ✅ **AI assistant integration** via MCP
 - ✅ **Central orchestration hub** for all customer interactions
+- ✅ **Comprehensive testing** for all modules
+- ✅ **Detailed documentation** for each component
 
 ## 🔧 **Troubleshooting**
 
@@ -184,20 +196,34 @@ Orion_Beta/
 DEBUG=mcp:* npm run start:mcp
 ```
 
+### Module-Specific Help:
+Each module has detailed documentation and troubleshooting guides in their respective README files.
+
 ## 📞 **Support**
 
 For issues or questions:
-1. Check the test output for specific errors
-2. Verify all API keys are correct
-3. Review webhook logs
-4. Create a GitHub issue
+1. Check the individual module README files
+2. Run the test suites to identify specific issues
+3. Verify all API keys are correct
+4. Review webhook logs
+5. Create a GitHub issue
 
 ## 🎯 **Next Steps**
 
-1. **Deploy to cloud service** (Vercel, Railway, etc.)
-2. **Configure webhook URL** in WhatsApp Business API
-3. **Set up n8n workflows** to process the data
-4. **Connect AI assistants** via MCP protocol
-5. **Test end-to-end flow** with real WhatsApp messages
+1. **Configure environment variables** in `.env`
+2. **Run tests** to verify all integrations work
+3. **Deploy to cloud service** (Vercel, Railway, etc.)
+4. **Configure webhook URL** in WhatsApp Business API
+5. **Set up n8n workflows** to process the data
+6. **Connect AI assistants** via MCP protocol
+7. **Test end-to-end flow** with real WhatsApp messages
+
+## 📚 **Module Documentation**
+
+- [WhatsApp Webhook Module](modules/whatsapp-webhook/README.md)
+- [HubSpot Integration Module](modules/hubspot-integration/README.md)
+- [n8n Integration Module](modules/n8n-integration/README.md)
+- [MCP Protocol Module](modules/mcp-protocol/README.md)
+- [Testing Module](modules/testing/README.md)
 
 Your Orion Beta project is ready to be your central integration hub! 🚀
