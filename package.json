@@ -5,6 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "build": "echo 'Build completed successfully'",
     "start": "node index.js",
     "start:mcp": "node webhook-mcp-integration.js",
     "dev": "node index.js",

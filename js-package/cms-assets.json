@@ -1,0 +1,15 @@
+{
+  "label": "Orion Beta CMS Assets",
+  "buildConfig": {
+    "healthchecks": {
+      "enabled": true,
+      "strict": false
+    }
+  },
+  "assets": [
+    {
+      "type": "js",
+      "path": "components/orion-beta.js"
+    }
+  ]
+}

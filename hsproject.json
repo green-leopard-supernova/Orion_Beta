@@ -4,6 +4,8 @@
   "version": "1.0.0",
   "platformVersion": "2025.2",
   "srcDir": "src",
+  "buildCommand": "npm run build",
+  "destDir": "dist",
   "scopes": [
     "crm.objects.contacts.read",
     "crm.objects.contacts.write",
