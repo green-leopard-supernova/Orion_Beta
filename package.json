@@ -44,14 +44,14 @@
     "@modelcontextprotocol/sdk": "^0.5.0"
   },
   "devDependencies": {
-    "@hubspot/cli": "^0.0.0"
+    "@hubspot/cli": "latest"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/Orion_Beta.git"
+    "url": "https://github.com/green-leopard-supernova/Orion_Beta.git"
   },
   "bugs": {
-    "url": "https://github.com/yourusername/Orion_Beta/issues"
+    "url": "https://github.com/green-leopard-supernova/Orion_Beta/issues"
   },
-  "homepage": "https://github.com/yourusername/Orion_Beta#readme"
+  "homepage": "https://github.com/green-leopard-supernova/Orion_Beta#readme"
 }
