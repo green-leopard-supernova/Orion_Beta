@@ -55,9 +55,4 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "functions": {
-    "modules/trello-powerup/trello-api.js": {
-      "maxDuration": 30
-    }
-  }
 }
