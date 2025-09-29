@@ -74,14 +74,14 @@ class HubSpotIntegration {
       const searchData = {
         query: phoneNumber,
         limit: 10,
-        properties: ['email', 'firstname', 'lastname', 'phone', 'whatsapp_number', 'mobilephone', 'id'],
+        properties: ['email', 'firstname', 'lastname', 'phone', 'mobilephone', 'id'],
       };
 
       const result = await this.makeRequest('POST', '/crm/v3/objects/contacts/search', searchData);
 
       // Find exact phone match
       const matchingContact = result.results.find(contact => {
-        const phoneFields = ['phone', 'whatsapp_number', 'mobilephone'];
+        const phoneFields = ['phone', 'mobilephone'];
         return phoneFields.some(field => {
           const value = contact.properties[field];
           return value && this.normalizePhone(value) === this.normalizePhone(phoneNumber);
@@ -105,13 +105,11 @@ class HubSpotIntegration {
     try {
       const contactData = {
         properties: {
-          whatsapp_number: phoneNumber,
           phone: phoneNumber,
           firstname: `WhatsApp User`,
           lastname: phoneNumber,
-          source: 'whatsapp',
-          last_whatsapp_message: new Date().toISOString(),
-          ...(messageData.type && { last_message_type: messageData.type }),
+          hs_lead_status: 'NEW',
+          lifecyclestage: 'lead',
         },
       };
 
@@ -132,9 +130,8 @@ class HubSpotIntegration {
     try {
       const updateData = {
         properties: {
-          last_whatsapp_message: new Date().toISOString(),
-          last_message_type: messageData.type,
-          ...(messageData.text && { last_message_content: messageData.text.body?.substring(0, 100) }),
+          // Just update the last modified date by touching the contact
+          // We'll use timeline events for message tracking instead
         },
       };
 
@@ -175,7 +172,6 @@ class HubSpotIntegration {
           dealstage: 'appointmentscheduled',
           pipeline: 'default',
           amount: '0',
-          source: 'whatsapp',
           ...dealData,
         },
       };
@@ -208,8 +204,8 @@ class HubSpotIntegration {
         return null;
       }
 
-      // Update contact activity
-      await this.updateContactActivity(contact.id, messageData);
+      // Update contact activity (using timeline events instead of properties)
+      // await this.updateContactActivity(contact.id, messageData);
 
       // Create timeline event
       await this.createWhatsAppTimelineEvent(contact.id, messageData);
@@ -285,7 +281,7 @@ class HubSpotIntegration {
       const searchData = {
         query,
         limit,
-        properties: ['email', 'firstname', 'lastname', 'phone', 'whatsapp_number'],
+        properties: ['email', 'firstname', 'lastname', 'phone', 'mobilephone'],
       };
 
       return await this.makeRequest('POST', '/crm/v3/objects/contacts/search', searchData);

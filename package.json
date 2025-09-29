@@ -18,7 +18,10 @@
     "test:n8n": "node modules/testing/test-n8n-integration.js",
     "test:hubspot": "node modules/testing/test-hubspot-integration.js",
     "test:whatsapp": "node modules/testing/test-send.js",
-    "test:webhook": "node modules/testing/test-webhook.js"
+    "test:webhook": "node modules/testing/test-webhook.js",
+    "test:trello": "node modules/testing/test-trello-powerup.js",
+    "trello:dev": "cd modules/trello-powerup && vercel dev",
+    "trello:deploy": "cd modules/trello-powerup && vercel --prod"
   },
   "keywords": [
     "whatsapp",
@@ -33,12 +36,13 @@
   "author": "Orion Team",
   "license": "ISC",
   "dependencies": {
+    "@hubspot/cli": "^7.7.0",
+    "@modelcontextprotocol/sdk": "^0.5.0",
     "axios": "^1.11.0",
     "body-parser": "^2.2.0",
     "crypto": "^1.0.1",
     "dotenv": "^17.2.1",
-    "express": "^5.1.0",
-    "@modelcontextprotocol/sdk": "^0.5.0"
+    "express": "^5.1.0"
   },
   "repository": {
     "type": "git",

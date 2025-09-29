@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import { MCPClientManager, PredefinedServers, N8nIntegration } from './mcp-client.js';
 import HubSpotIntegration from './hubspot-integration.js';
+import trelloRouter from '../trello-powerup/trello-api.js';
 
 dotenv.config();
 
@@ -142,6 +143,9 @@ class WhatsAppMCPWebhook {
         res.status(500).json({ error: error.message });
       }
     });
+
+    // Trello Power-Up integration (optional)
+    this.app.use('/', trelloRouter);
   }
 
   async initializeMCPServers() {
