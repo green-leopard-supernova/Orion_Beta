@@ -3,22 +3,22 @@
   "name": "orion-trello-powerup",
   "builds": [
     {
-      "src": "public/**/*",
+      "src": "modules/trello-powerup/public/**/*",
       "use": "@vercel/static"
     },
     {
-      "src": "trello-api.js",
+      "src": "modules/trello-powerup/trello-api.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/trello/query",
-      "dest": "/trello-api.js"
+      "dest": "/modules/trello-powerup/trello-api.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "/modules/trello-powerup/public/$1"
     }
   ],
   "headers": [
@@ -56,7 +56,7 @@
     "NODE_ENV": "production"
   },
   "functions": {
-    "trello-api.js": {
+    "modules/trello-powerup/trello-api.js": {
       "maxDuration": 30
     }
   }
