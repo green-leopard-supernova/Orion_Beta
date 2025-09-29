@@ -11,14 +11,14 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/trello/query",
-      "dest": "/modules/trello-powerup/trello-api.js"
+      "source": "/api/trello/query",
+      "destination": "/modules/trello-powerup/trello-api.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/modules/trello-powerup/public/$1"
+      "source": "/(.*)",
+      "destination": "/modules/trello-powerup/public/$1"
     }
   ],
   "headers": [
